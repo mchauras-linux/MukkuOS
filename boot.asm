@@ -1,8 +1,17 @@
-ORG 0x7C00
-
+ORG 0
 BITS 16
 
+jmp 0x7c0:start
+
 start:
+    cli ; Clear Interrupts
+    mov ax, 0x7c0
+    mov ds, ax
+    mov es, ax
+    mov ax, 0x00
+    mov ss, ax
+    mov sp, 0x7c00
+    sti ; Enables Interrupts
     mov si, message
     call print
     jmp $
@@ -24,7 +33,7 @@ print_char:
     int 0x10
     ret
 
-message: db 'Mukku OS', 0
+message: db 'Booting Mukku OS...', 0
 times 510 - ($ - $$) db 0
 db 0x55
 db 0xAA
