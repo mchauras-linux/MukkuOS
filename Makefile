@@ -1,10 +1,11 @@
 all:
-	nasm -f bin -g boot.asm -o boot.bin
-	dd if=message.txt >> boot.bin
-	dd if=/dev/zero bs=512 count=1 >> boot.bin
+	nasm -f bin -g ./src/boot.asm -o ./bin/boot.bin
+	dd if=message.txt >> ./bin/boot.bin
+	dd if=/dev/zero bs=512 count=1 >> ./bin/boot.bin
 
 run: all
-	qemu-system-x86_64 -hda boot.bin
+	qemu-system-x86_64 -hda ./bin/boot.bin
 
 clean:
-	rm -rf boot.bin
+	rm -rf ./build/*
+	rm -rf ./bin/*
