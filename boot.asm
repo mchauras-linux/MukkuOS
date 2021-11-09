@@ -1,4 +1,4 @@
-ORG 0
+ORG 0x7C00
 BITS 16
 
 CODE_SEG equ gdt_code - gdt_start
@@ -10,7 +10,7 @@ _start:
 times 33 db 0
 
 start:
-    jmp 0x7c0:step2
+    jmp 0:step2
 
 read_hdd:
     mov ah, 2       ; Read Sector command
@@ -57,10 +57,9 @@ print_new_line:
 
 step2:
     cli             ; Clear Interrupts
-    mov ax, 0x7c0
+    mov ax, 0x00
     mov ds, ax
     mov es, ax
-    mov ax, 0x00
     mov ss, ax
     mov sp, 0x7c00
     sti             ; Enables Interrupts
