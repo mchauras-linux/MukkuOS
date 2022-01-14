@@ -9,3 +9,7 @@ Use QEMU as Simulator
 
 command =>
 qemu-system-x86_64 boot.bin
+
+Setup Cross Compiler =>
+Google Osdev Wiki GCC Cross Compiler
+This will setup binutils and gcc cross compiler
