@@ -17,6 +17,6 @@ This will setup binutils and gcc cross compiler
 Debug via gdb =>
 
 gdb
-add-symbol-file mukkuos.o 0x100000
+add-symbol-file mukkuOs.o 0x100000
 set breakpoint
 target remote | qemu-system-x86_64 -S -gdb stdio -hda ./bin/mukkuOs.bin
