@@ -13,3 +13,10 @@ qemu-system-x86_64 boot.bin
 Setup Cross Compiler =>
 Google Osdev Wiki GCC Cross Compiler
 This will setup binutils and gcc cross compiler
+
+Debug via gdb =>
+
+gdb
+add-symbol-file mukkuos.o 0x100000
+set breakpoint
+target remote | qemu-system-x86_64 -S -gdb stdio -hda ./bin/mukkuOs.bin
