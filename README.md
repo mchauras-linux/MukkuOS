@@ -19,4 +19,5 @@ Debug via gdb =>
 gdb
 add-symbol-file ./build/kernel.o 0x100000
 set breakpoint
+break kernel_main
 target remote | qemu-system-x86_64 -S -gdb stdio -hda ./bin/mukku.bin
