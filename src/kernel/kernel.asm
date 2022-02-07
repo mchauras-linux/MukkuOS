@@ -21,4 +21,5 @@ _start:
     out 0x92, al
     call kernel_main
     jmp $
+
 times 512 - ($ - $$) db 0

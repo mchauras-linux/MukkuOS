@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include "idt/idt.h"
 #include <stdint.h>
 #include <stddef.h>
 
@@ -65,6 +66,8 @@ void terminal_init()
 void kernel_main() 
 {
     terminal_init();
-    print("Mukku OS\nHello World");
+    print("Mukku OS\nHello World\n");
+    //Init IDT
+    idt_init();
 }
 
