@@ -7,6 +7,14 @@ uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
 uint16_t terminal_col = 0;
 
+void kernel_main() 
+{
+    terminal_init();
+    print("Mukku OS\nHello World\n");
+    //Init IDT
+    idt_init();
+}
+
 uint16_t terminal_make_char(char c, char color) 
 {
     return (color << 8) | c;
@@ -61,13 +69,5 @@ void terminal_init()
         }
     }
     
-}
-
-void kernel_main() 
-{
-    terminal_init();
-    print("Mukku OS\nHello World\n");
-    //Init IDT
-    idt_init();
 }
 

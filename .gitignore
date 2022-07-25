@@ -54,3 +54,4 @@ dkms.conf
 #User Defined
 bin
 build
+.vscode*
