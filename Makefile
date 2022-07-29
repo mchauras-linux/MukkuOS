@@ -1,5 +1,5 @@
 OS_NAME=mukku
-FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.o ./build/memory/memory.o ./build/idt/idt.asm.o
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.o ./build/memory/memory.o ./build/idt/idt.asm.o ./build/io/io.asm.o
 INCLUDES= -I./src
 DEBUG_FLAGS=-g
 CFLAGS= $(DEBUG_FLAGS) -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
@@ -35,6 +35,10 @@ all: ./bin/boot.bin ./bin/kernel.bin
 ./build/memory/memory.o: ./src/memory/memory.c
 	mkdir -p ./build/memory
 	i686-elf-gcc $(INCLUDES) $(CFLAGS) -std=gnu99 -c ./src/memory/memory.c -o ./build/memory/memory.o
+
+./build/io/io.asm.o: ./src/io/io.asm
+	mkdir -p ./build/io
+	nasm -f elf $(DEBUG_FLAGS) ./src/io/io.asm -o ./build/io/io.asm.o
 
 run: all
 	qemu-system-x86_64 -hda ./bin/$(OS_NAME).bin
