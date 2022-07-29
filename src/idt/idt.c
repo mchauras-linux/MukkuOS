@@ -2,15 +2,46 @@
 #include "config.h"
 #include "memory/memory.h"
 #include "kernel/kernel.h"
+#include "io/io.h"
+#include "kernel/terminal.h"
 
 struct idt_desc idt_descriptors[MUKKUOS_TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;
 
 extern void load_idt(struct idtr_desc* ptr);
+extern void no_interrupt();
 
-void idt_zero() 
+extern void idt_zero();
+
+extern void int20h();
+extern void int21h();
+
+void no_interrupt_handler()
+{
+    //print("No Interrupt Handler\n");
+    outb(0x20, 0x20);
+}
+
+/**
+ * @brief Interrupt handler for Timer Interrupt
+ * 
+ */
+void int20h_handler()
+{
+    //print("Timer Interrupt\n");
+    outb(0x20, 0x20);
+}
+
+void int21h_handler()
+{
+    print("Keyboard Pressed\n");
+    outb(0x20, 0x20);
+}
+
+void idt_zero_handler() 
 {
     print("Divide by Zero Error\n");
+    outb(0x20, 0x20);
 }
 
 void idt_set(int int_no, void* address)
@@ -29,7 +60,15 @@ void idt_init()
     idtr_descriptor.limit = sizeof(idt_descriptors) - 1;
     idtr_descriptor.base = (uint32_t) idt_descriptors;
 
+    for(int i = 0; i < MUKKUOS_TOTAL_INTERRUPTS; i++)
+    {
+        idt_set(i, no_interrupt);
+    }
+
+    idt_set(0, idt_zero);
+    idt_set(0x20, int20h);
+    idt_set(0x21, int21h);
+
     //Load Interrupt Descriptor Table
     load_idt(&idtr_descriptor);
-    idt_set(0, idt_zero);
 }

@@ -31,7 +31,7 @@ outb:
     push ebp
     mov ebp, esp
 
-    xor eax, [ebp+12]
+    mov eax, [ebp+12]
     mov edx, [ebp+8]
     out dx, al
 
@@ -42,7 +42,7 @@ outw:
     push ebp
     mov ebp, esp
 
-    xor eax, [ebp+12]
+    mov eax, [ebp+12]
     mov edx, [ebp+8]
     out dx, ax
 
